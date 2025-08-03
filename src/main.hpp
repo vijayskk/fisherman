@@ -12,6 +12,9 @@
 #include <sys/types.h>
 #include <sys/time.h>
 #include <errno.h>
+#pragma once
+#include <atomic>
+extern std::atomic<int> ports_scanned;
 
 using std::thread;
 using std::mutex;

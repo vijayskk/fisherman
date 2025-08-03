@@ -61,12 +61,21 @@ int main(int argc, char *argv[])
 
 
 void help(){
-    cout << "\t'-s' - Scan system ports\n"
-         << "\t'-u' - Scan user ports\n"
-         << "\t'-p' - Scan private ports\n"
-         << "\t'-c' - Scan commonly used ports\n"
-         << "\t'-a' - Scan all ports\n"
-         << "\t'-h' - Print this menu.\n";
+    cout << "=============================\n";
+    cout << "     🐟 Fisherman v1.0       \n";
+    cout << "  Fast TCP Port Scanner      \n";
+    cout << "=============================\n\n";
+    cout << "Usage:\n";
+    cout << "  fisherman [OPTION] [TARGET_IP]\n\n";
+    cout << "Options:\n";
+    cout << "  -s    Scan system ports (0 - 1023)\n";
+    cout << "  -u    Scan user ports   (1024 - 49151)\n";
+    cout << "  -p    Scan private ports (49152 - 65535)\n";
+    cout << "  -c    Scan commonly used ports\n";
+    cout << "  -a    Scan all ports (0 - 65535)\n";
+    cout << "  -h    Display this help message\n\n";
+    cout << "Example:\n";
+    cout << "  fisherman -c 192.168.1.10\n\n";
     exit(0);
 }
 
@@ -136,15 +145,20 @@ void count_open_ports(int start, int end,std::string ip){
 }
 
 void print_ports(){
-    for(int port : open_ports){
-        if ((common_services.count(port) > 0))
-        {
-            cout<<port<<" - "<< common_services[port] <<"\n";
-        }else{
-            cout<<port<<" - "<< "Unknown" <<"\n";
+    cout << "\n========== Scan Results ==========\n";
+    if (open_ports.empty()) {
+        cout << "No open ports found.\n";
+    } else {
+        for(int port : open_ports){
+            if ((common_services.count(port) > 0))
+            {
+                cout << "[+] Port " << port << " OPEN - " << common_services[port] << "\n";
+            } else {
+                cout << "[+] Port " << port << " OPEN - Unknown service\n";
+            }
         }
-        
     }
+    cout << "==================================\n";
 }
 
 void thread_handler(int start,int end,std::string ip){
@@ -152,7 +166,7 @@ void thread_handler(int start,int end,std::string ip){
     thread threadlist[max_threads];
     int interval = (end - start + 1)/max_threads;
     int thread_num;
-
+    cout<< "Scanning...\n";
     for (thread_num = 0; thread_num < max_threads; thread_num++)
     {
         int rightbound = start+interval;
@@ -169,6 +183,7 @@ void thread_handler(int start,int end,std::string ip){
 }
 
 void common_scan(std::string ip){
+    cout<< "Scanning...\n";
     for (auto port : common_ports)
     {
         if (is_open(ip,port))

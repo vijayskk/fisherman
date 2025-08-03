@@ -1,0 +1,72 @@
+.TH FISHERMAN 1 "August 2025" "Fisherman 1.0" "User Commands"
+
+.SH NAME
+fisherman \- fast multi-threaded TCP port scanner
+
+.SH SYNOPSIS
+.B fisherman
+[\-s | \-u | \-p | \-c | \-a] [TARGET_IP]
+
+.SH DESCRIPTION
+Fisherman is a fast TCP port scanner written in C++ that uses non-blocking sockets and multi-threading to efficiently scan ports. It supports scanning common ports, full ranges, and provides optional progress feedback.
+
+.SH FEATURES
+.IP \[bu] 2
+Scans system, user, private, or all ports
+.IP \[bu] 2
+Non-blocking socket logic with select-based timeout
+.IP \[bu] 2
+Multi-threaded scanning
+.IP \[bu] 2
+Common ports dictionary with service names
+
+.SH OPTIONS
+.TP
+.B \-s
+Scan system ports (0–1023)
+.TP
+.B \-u
+Scan user ports (1024–49151)
+.TP
+.B \-p
+Scan private ports (49152–65535)
+.TP
+.B \-c
+Scan common service ports
+.TP
+.B \-a
+Scan all ports (0–65535)
+.TP
+.B \-h
+Display help menu
+
+.SH EXAMPLES
+.TP
+Scan system ports on a target
+.B fisherman \-s 192.168.1.10
+
+.TP
+Scan all ports
+.B fisherman \-a 192.168.1.10
+
+.TP
+Scan only common ports
+.B fisherman \-c 192.168.1.10
+
+.SH INSTALLATION
+To build and install fisherman:
+
+.nf
+make
+sudo make install
+.fi
+
+.SH UNINSTALL
+To remove the binary and man page:
+
+.nf
+sudo make uninstall
+.fi
+
+.SH LICENSE
+See the LICENSE file in the project directory.
