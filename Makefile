@@ -1,5 +1,15 @@
+UNAME_S := $(shell uname -s)
+
+ifeq ($(UNAME_S),Linux)
+    THREAD_FLAG = -pthread
+else ifeq ($(UNAME_S),Darwin)
+    THREAD_FLAG = -pthreads
+else
+    THREAD_FLAG = -pthread
+endif
+
 CC=g++
-CFLAGS = -pthreads --std=c++11
+CFLAGS = $(THREAD_FLAG) --std=c++11
 EXEC=fisherman
 MAIN=src/main.cpp
 
