@@ -13,6 +13,7 @@ Fisherman is a fast multi-threaded TCP port scanner written in C++.
 ## Installation
 
 ```bash
+mkdir build
 make
 sudo make install
 ```
