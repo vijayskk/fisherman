@@ -16,11 +16,11 @@
 #include <atomic>
 extern std::atomic<int> ports_scanned;
 
-using std::thread;
-using std::mutex;
-using std::lock_guard;
-using std::vector;
 using std::cout;
+using std::lock_guard;
+using std::mutex;
+using std::thread;
+using std::vector;
 
 static vector<int> open_ports;
 static mutex vec_mtx;
